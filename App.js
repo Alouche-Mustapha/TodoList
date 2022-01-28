@@ -1,10 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { TextInput } from "react-native-paper";
+
+import { commonColors } from "./src/utils/Colors";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <View style={styles.titleContainer}>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Today's tasks</Text>
+      </View>
+      <View>
+
+      </View>
+      <View>
+
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +24,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: commonColors.Gray,
+    justifyContent: "flex-start",
+  },
+  titleContainer: {
+    flex: 0,
+    height: "15%",
+    alignItems: "flex-start",
+    justifyContent: "flex-end",
+    backgroundColor: commonColors.Green,
   },
 });
