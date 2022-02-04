@@ -1,50 +1,82 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useRef, useState } from "react";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { commonColors } from "../utils/Colors";
+import { Ionicons } from "@expo/vector-icons";
 
-const Task = (props) => {
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+/*
+{...props} : means that we are giving you an object "{}" that has as propreties all the attributs that are recieved from the parent 
+props : means that we are giving you an object "props" that is a copy from an object recieved from the parent
+*/
+const Task = ({ ...props }) => {
+  const [isDone, setIsDone] = useState(props.state);
+
+  const checkDoneClicked = () => {
+    setIsDone(!isDone);
+    props.onStateChange();
+  };
+
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
-        <View style={styles.square}></View>
+        <>
+          {isDone ? (
+            <Ionicons
+              name="md-checkmark-done-sharp"
+              size={windowHeight / 28}
+              color={commonColors.Green}
+              onPress={() => checkDoneClicked()}
+            />
+          ) : (
+            <MaterialIcons
+              name="remove-done"
+              size={windowHeight / 28}
+              color={commonColors.Red}
+              onPress={() => checkDoneClicked()}
+            />
+          )}
+        </>
         <Text style={styles.itemText}>{props.text}</Text>
       </View>
-      <View style={styles.circular}></View>
+      <MaterialIcons.Button
+        name="delete-forever"
+        size={windowWidth / 18}
+        color={commonColors.White}
+        backgroundColor={commonColors.Teal}
+        borderRadius={10}
+        iconStyle={{ marginRight: 0 }}
+        onPress={() => props.onPress(isDone)}
+      >
+        <Text style={{ color: "white" }}>Delete</Text>
+      </MaterialIcons.Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: "#FFF",
-    padding: 15,
+    backgroundColor: commonColors.Silver,
+    paddingHorizontal: "5%",
+    paddingVertical: "3%",
     borderRadius: 10,
+    borderColor: commonColors.Black,
+    borderWidth: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: "5%",
   },
   itemLeft: {
     flexDirection: "row",
+    flex: 0.95,
     alignItems: "center",
-    flexWrap: "wrap",
-  },
-  square: {
-    width: 24,
-    height: 24,
-    backgroundColor: "#55BCF6",
-    opacity: 0.4,
-    borderRadius: 5,
-    marginRight: 15,
   },
   itemText: {
-    maxWidth: "80%",
-  },
-  circular: {
-    width: 12,
-    height: 12,
-    borderColor: "#55BCF6",
-    borderWidth: 2,
-    borderRadius: 5,
+    flex: 1,
+    marginLeft: "6%",
+    fontWeight: "bold",
   },
 });
 
