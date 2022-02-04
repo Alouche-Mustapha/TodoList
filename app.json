@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AppFromScratch",
-    "slug": "AppFromScratch",
+    "name": "TodoList",
+    "slug": "TodoList",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
